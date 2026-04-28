@@ -671,6 +671,8 @@ fn main() {
         "thread_getpid",
         "thread_get_unchecked",
         "ztimer_spin",
+        "ws281x_prepare_transmission",
+        "ws281x_end_transmission",
         // because when defined through RIOT's af.h these are enums and thus unix_af_t prefixed.
         "AF_UNSPEC",
         "AF_UNIX",

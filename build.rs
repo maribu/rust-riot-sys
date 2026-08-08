@@ -31,6 +31,7 @@ fn main() {
     println!("cargo:rerun-if-env-changed=BUILDING_RIOT_RS");
     println!("cargo:rerun-if-env-changed=RIOT_CC");
     println!("cargo:rerun-if-env-changed=RIOT_CFLAGS");
+    println!("cargo:rerun-if-env-changed=BOARD");
     println!("cargo:rerun-if-env-changed={}", &compile_commands_json);
 
     if let Ok(commands_json) = env::var(compile_commands_json) {
@@ -711,9 +712,11 @@ fn main() {
         .write(
             format!(
                 "
-               pub use inline::{{ {} }};
-           ",
-                toplevel_from_inline.join(",\n")
+                pub use inline::{{ {} }};
+                pub const BOARD: &str = {:?};
+                ",
+                toplevel_from_inline.join(",\n"),
+                env!("BOARD")
             )
             .as_bytes(),
         )
